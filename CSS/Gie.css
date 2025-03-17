@@ -1,0 +1,275 @@
+
+        /* Style général de la page */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem;
+        }
+
+        header nav ul {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        header nav ul li {
+            display: inline;
+            margin-right: 15px;
+        }
+
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        main {
+            padding: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 2rem;
+            width: 100%;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        h2 {
+            color: #4CAF50;
+        }
+
+        .section {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: calc(50% - 1rem); /* Deux sections par ligne */
+            box-sizing: border-box;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form input {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        form button {
+            width: 200px;
+            align-self: center;
+        }
+
+        .statistiques {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .stat {
+            background-color: #f9f9f9;
+            padding: 1rem;
+            border-radius: 8px;
+            width: 30%;
+            text-align: center;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        /* Responsivité : sur petit écran, chaque section prend 100% de la largeur */
+        @media (max-width: 768px) {
+            .section {
+                width: 100%; /* Sections prennent toute la largeur */
+            }
+        }
+
+
+
+
+          /* Style général de la page */
+          body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem;
+        }
+
+        header nav ul {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        header nav ul li {
+            display: inline;
+            margin-right: 15px;
+        }
+
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        main {
+            padding: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 2rem;
+            width: 100%;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        h2 {
+            color: #4CAF50;
+        }
+
+        .section {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: calc(50% - 1rem); /* Deux sections par ligne */
+            box-sizing: border-box;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form input {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        form button {
+            width: 200px;
+            align-self: center;
+        }
+
+        .statistiques {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .stat {
+            background-color: #f9f9f9;
+            padding: 1rem;
+            border-radius: 8px;
+            width: 30%;
+            text-align: center;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        /* Responsivité : sur petit écran, chaque section prend 100% de la largeur */
+        @media (max-width: 768px) {
+            .section {
+                width: 100%; /* Sections prennent toute la largeur */
+            }
+        }
