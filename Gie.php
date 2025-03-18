@@ -23,7 +23,7 @@
 
             <!-- Titre au centre -->
             <div class="title">
-                <h1>ESPACE GIE</h1>
+                <h1>ESPACE GIE 12</h1>
             </div>
 
             <!-- Menu déroulant et bouton de déconnexion à droite -->
