@@ -20,13 +20,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Redirection en fonction du rôle
             switch ($user["role"]) {
-                case "client":
+                case "Client":
                     header("Location: Client.php");
                     break;
-                case "gie":
+                case "Gie":
                     header("Location: Gie.php");
                     break;
-                case "admin":
+                case "Admin":
                     header("Location: Admin.php");
                     break;
                 default:

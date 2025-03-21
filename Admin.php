@@ -1,3 +1,22 @@
+<?php
+// Inclure la configuration de la base de données
+include('Config.php');
+
+// Récupérer les utilisateurs de la base de données
+$query = $pdo->prepare("SELECT * FROM users"); // Remplacez 'utilisateurs' par le nom exact de votre table d'utilisateurs
+$query->execute();
+$users = $query->fetchAll(PDO::FETCH_ASSOC); // Récupérer tous les utilisateurs sous forme de tableau associatif
+
+// Récupérer les réclamations
+$query_reclamations = $pdo->prepare("SELECT * FROM avis_reclamations WHERE type = 'reclamation'");
+$query_reclamations->execute();
+$reclamations = $query_reclamations->fetchAll(PDO::FETCH_ASSOC);
+
+// Récupérer les avis
+$query_avis = $pdo->prepare("SELECT * FROM avis_reclamations WHERE type = 'avis'");
+$query_avis->execute();
+$avis = $query_avis->fetchAll(PDO::FETCH_ASSOC);
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -9,18 +28,7 @@
  <link rel="stylesheet" href="CSS/Client.css">
 </head>
 <body>
-    <!-- <header>
-        <nav>
-            <ul>
-                <li><a href="#">Accueil</a></li>
-                <li><a href="#utilisateurs">Gestion des Utilisateurs</a></li>
-                <li><a href="#collectes">Supervision des Collectes</a></li>
-                <li><a href="#tarifs">Gestion des Tarifs</a></li>
-                <li><a href="#reclamations">Gestion des Réclamations</a></li>
-                <li><a href="#statistiques">Statistiques Générales</a></li>
-            </ul>
-        </nav>
-    </header> -->
+
     <header>
     <nav>
         <div class="nav-container">
@@ -67,38 +75,24 @@
             <tr>
                 <th>Nom</th>
                 <th>Email</th>
+                <th>Adresse</th>
                 <th>Rôle</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
+            <?php foreach ($users as $user): ?>
             <tr>
-                <td>Client 1</td>
-                <td>client1@example.com</td>
-                <td>Client</td>
+                <td><?php echo htmlspecialchars($user['name']); ?></td>
+                <td><?php echo htmlspecialchars($user['email']); ?></td>
+                <td><?php echo htmlspecialchars($user['address']); ?></td>
+                <td><?php echo htmlspecialchars($user['role']); ?></td>
                 <td>
                     <button><i class="fas fa-edit"></i> </button>
                     <button><i class="fas fa-trash-alt"></i></button>
                 </td>
             </tr>
-            <tr>
-                <td>GIE 1</td>
-                <td>gie1@example.com</td>
-                <td>GIE</td>
-                <td>
-                    <button><i class="fas fa-edit"></i></button>
-                    <button><i class="fas fa-trash-alt"></i></button>
-                </td>
-            </tr>
-            <tr>
-                <td>Administrateur 1</td>
-                <td>admin1@example.com</td>
-                <td>Administrateur</td>
-                <td>
-                    <button><i class="fas fa-edit"></i></button>
-                    <button><i class="fas fa-trash-alt"></i></button>
-                </td>
-            </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
 </section>
@@ -153,23 +147,71 @@
             <tr>
                 <th>ID Réclamation</th>
                 <th>Client</th>
-                <th>Type de Réclamation</th>
+                <th>Description</th>
                 <th>Status</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
+            <?php foreach ($reclamations as $reclamation): ?>
             <tr>
-                <td>R001</td>
-                <td>Client 1</td>
-                <td>Problème de collecte</td>
-                <td><button>En cours</button></td>
+                <td><?php echo htmlspecialchars($reclamation['id']); ?></td>
+                <td>
+                    <?php 
+                    // Récupérer le nom du client à partir du user_id
+                    $user_query = $pdo->prepare("SELECT name FROM users WHERE id = :user_id");
+                    $user_query->execute(['user_id' => $reclamation['user_id']]);
+                    $user = $user_query->fetch(PDO::FETCH_ASSOC);
+                    echo htmlspecialchars($user['name']);
+                    ?>
+                </td>
+                <td><?php echo nl2br(htmlspecialchars($reclamation['contenu'])); ?></td>
+                <td><?php echo htmlspecialchars($reclamation['status']); ?></td>
+                <td>
+                    <!-- Permet à un administrateur de changer le statut -->
+                    <form method="POST" action="update_status.php">
+                        <input type="hidden" name="id" value="<?php echo $reclamation['id']; ?>">
+                        <select name="status">
+                            <option value="En attente" <?php if ($reclamation['status'] == 'En attente') echo 'selected'; ?>>En attente</option>
+                            <option value="Prise en compte" <?php if ($reclamation['status'] == 'Prise en compte') echo 'selected'; ?>>Prise en compte</option>
+                            <option value="En cours" <?php if ($reclamation['status'] == 'En cours') echo 'selected'; ?>>En cours</option>
+                            <option value="Résolue" <?php if ($reclamation['status'] == 'Résolue') echo 'selected'; ?>>Résolue</option>
+                        </select>
+                        <button type="submit">Mettre à jour</button>
+                    </form>
+                </td>
             </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</section>
+
+<section id="avis" class="section">
+    <h2><i class="fas fa-exclamation-circle"></i> Gestion des Avis</h2>
+    <table>
+        <thead>
             <tr>
-                <td>R002</td>
-                <td>Client 2</td>
-                <td>Problème de facturation</td>
-                <td><button>Résolu</button></td>
+                <th>ID Avis</th>
+                <th>Client</th>
+                <th>Description</th>
             </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($avis as $av): ?>
+            <tr>
+                <td><?php echo htmlspecialchars($av['id']); ?></td>
+                <td>
+                    <?php 
+                    // Récupérer le nom du client à partir du user_id
+                    $user_query = $pdo->prepare("SELECT name FROM users WHERE id = :user_id");
+                    $user_query->execute(['user_id' => $av['user_id']]);
+                    $user = $user_query->fetch(PDO::FETCH_ASSOC);
+                    echo htmlspecialchars($user['name']);
+                    ?>
+                </td>
+                <td><?php echo nl2br(htmlspecialchars($av['contenu'])); ?></td>
+            </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
 </section>
